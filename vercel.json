@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/rochas_vision_crm.html" }
+  ]
+}
