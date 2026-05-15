@@ -664,14 +664,16 @@ async function supa(path, method='GET', body=null){
       'apikey': SUPA_KEY,
       'Authorization': 'Bearer ' + SUPA_KEY,
       'Content-Type': 'application/json',
-      'Prefer': method==='POST' ? 'return=representation' : 'return=representation'
+      'Prefer': 'return=representation'
     }
   };
   if(body) opts.body = JSON.stringify(body);
-  const res = await fetch(SUPA_URL + '/rest/v1/' + path, opts);
-  if(!res.ok){ const e=await res.text(); console.error(e); return null; }
-  const text = await res.text();
-  return text ? JSON.parse(text) : null;
+  try{
+    const res = await fetch(SUPA_URL + '/rest/v1/' + path, opts);
+    if(!res.ok){ const e=await res.text(); console.error('Supabase error:',e); return null; }
+    const text = await res.text();
+    return text ? JSON.parse(text) : [];
+  }catch(e){ console.error('Fetch error:',e); return null; }
 }
 
 function dbRow(c){
