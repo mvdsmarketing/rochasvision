@@ -724,8 +724,8 @@ function gv(id){return parseFloat(gi(id)?.value)||0}
 function initials(n){return(n||'').split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?'}
 function colorFor(id){return COLORS[(id-1)%COLORS.length]}
 function showLoading(msg){
-  gi('loading-msg').textContent=msg||'Cargando...';
-  gi('loading-overlay').style.display='flex';
+  const _lm=gi('loading-msg');if(_lm)_lm.textContent=msg||'Cargando...';
+  const _lo=gi('loading-overlay');if(_lo)_lo.style.display='flex';
 }
 function hideLoading(){ gi('loading-overlay').style.display='none'; }
 function showToast(msg,ok=true){
