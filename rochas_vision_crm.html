@@ -468,15 +468,31 @@ html,body{height:100%;font-family:var(--f);background:var(--bg);color:var(--t1);
             <div class="card">
               <div class="card-h"><i class="ti ti-package"></i><span class="card-t">Pedido 1</span></div>
               <div class="card-b">
-                <div class="mr"><div class="ml">Armazón</div><span class="ms">$</span><input class="mi" type="number" id="p-arm1" placeholder="0" inputmode="decimal" oninput="calcTotal()"></div>
-                <div class="mr"><div class="ml">Cristales</div><span class="ms">$</span><input class="mi" type="number" id="p-cris1" placeholder="0" inputmode="decimal" oninput="calcTotal()"></div>
+                <div class="mr">
+                  <div class="ml">Armazón</div>
+                  <input type="text" id="p-arm1-nota" placeholder="Descripción…" style="flex:1;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r1);padding:6px 8px;font-size:12px;color:var(--t1);font-family:var(--f);outline:none;margin-right:8px" onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--bdr)'">
+                  <span class="ms">$</span><input class="mi" type="number" id="p-arm1" placeholder="0" inputmode="decimal" oninput="calcTotal()">
+                </div>
+                <div class="mr">
+                  <div class="ml">Cristales</div>
+                  <input type="text" id="p-cris1-nota" placeholder="Descripción…" style="flex:1;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r1);padding:6px 8px;font-size:12px;color:var(--t1);font-family:var(--f);outline:none;margin-right:8px" onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--bdr)'">
+                  <span class="ms">$</span><input class="mi" type="number" id="p-cris1" placeholder="0" inputmode="decimal" oninput="calcTotal()">
+                </div>
               </div>
             </div>
             <div class="card">
               <div class="card-h"><i class="ti ti-package"></i><span class="card-t">Pedido 2</span></div>
               <div class="card-b">
-                <div class="mr"><div class="ml">Armazón</div><span class="ms">$</span><input class="mi" type="number" id="p-arm2" placeholder="0" inputmode="decimal" oninput="calcTotal()"></div>
-                <div class="mr"><div class="ml">Cristales</div><span class="ms">$</span><input class="mi" type="number" id="p-cris2" placeholder="0" inputmode="decimal" oninput="calcTotal()"></div>
+                <div class="mr">
+                  <div class="ml">Armazón</div>
+                  <input type="text" id="p-arm2-nota" placeholder="Descripción…" style="flex:1;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r1);padding:6px 8px;font-size:12px;color:var(--t1);font-family:var(--f);outline:none;margin-right:8px" onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--bdr)'">
+                  <span class="ms">$</span><input class="mi" type="number" id="p-arm2" placeholder="0" inputmode="decimal" oninput="calcTotal()">
+                </div>
+                <div class="mr">
+                  <div class="ml">Cristales</div>
+                  <input type="text" id="p-cris2-nota" placeholder="Descripción…" style="flex:1;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r1);padding:6px 8px;font-size:12px;color:var(--t1);font-family:var(--f);outline:none;margin-right:8px" onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--bdr)'">
+                  <span class="ms">$</span><input class="mi" type="number" id="p-cris2" placeholder="0" inputmode="decimal" oninput="calcTotal()">
+                </div>
               </div>
             </div>
             <div class="card">
@@ -682,8 +698,10 @@ function dbRow(c){
     e_dia:c.eDia||'', e_mes:c.eMes||'', e_anio:c.eAnio||'',
     r_dia:c.rDia||'', r_mes:c.rMes||'', r_anio:c.rAnio||'',
     notas:c.notas||'', notas2:c.notas2||'',
-    p_arm1:c.pArm1||'', p_cris1:c.pCris1||'',
-    p_arm2:c.pArm2||'', p_cris2:c.pCris2||'',
+    p_arm1:c.pArm1||'', p_arm1_nota:c.pArm1Nota||'',
+    p_cris1:c.pCris1||'', p_cris1_nota:c.pCris1Nota||'',
+    p_arm2:c.pArm2||'', p_arm2_nota:c.pArm2Nota||'',
+    p_cris2:c.pCris2||'', p_cris2_nota:c.pCris2Nota||'',
     p_senia:c.pSenia||'', p_nota2:c.pNota2||'',
     receta:c.receta||{}
   };
@@ -695,8 +713,10 @@ function fromRow(r){
     eDia:r.e_dia, eMes:r.e_mes, eAnio:r.e_anio,
     rDia:r.r_dia, rMes:r.r_mes, rAnio:r.r_anio,
     notas:r.notas, notas2:r.notas2,
-    pArm1:r.p_arm1, pCris1:r.p_cris1,
-    pArm2:r.p_arm2, pCris2:r.p_cris2,
+    pArm1:r.p_arm1, pArm1Nota:r.p_arm1_nota,
+    pCris1:r.p_cris1, pCris1Nota:r.p_cris1_nota,
+    pArm2:r.p_arm2, pArm2Nota:r.p_arm2_nota,
+    pCris2:r.p_cris2, pCris2Nota:r.p_cris2_nota,
     pSenia:r.p_senia, pNota2:r.p_nota2,
     receta:r.receta||{}
   };
@@ -724,10 +744,10 @@ function gv(id){return parseFloat(gi(id)?.value)||0}
 function initials(n){return(n||'').split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?'}
 function colorFor(id){return COLORS[(id-1)%COLORS.length]}
 function showLoading(msg){
-  const _lm=gi('loading-msg');if(_lm)_lm.textContent=msg||'Cargando...';
-  const _lo=gi('loading-overlay');if(_lo)_lo.style.display='flex';
+  const el=gi('loading-msg'); if(el) el.textContent=msg||'Cargando...';
+  const ov=gi('loading-overlay'); if(ov) ov.style.display='flex';
 }
-function hideLoading(){ gi('loading-overlay').style.display='none'; }
+function hideLoading(){ const ov=gi('loading-overlay'); if(ov) ov.style.display='none'; }
 function showToast(msg,ok=true){
   const t=gi('toast');
   t.textContent=msg;
@@ -765,8 +785,10 @@ function selectClient(id){
   gi('f-notas').value=c.notas||'';gi('f-notas2').value=c.notas2||'';
   const r=c.receta||{};
   Object.keys(recetaMap).forEach(eid=>{const el=gi(eid);if(el)el.value=r[recetaMap[eid]]||''});
-  gi('p-arm1').value=c.pArm1||'';gi('p-cris1').value=c.pCris1||'';
-  gi('p-arm2').value=c.pArm2||'';gi('p-cris2').value=c.pCris2||'';
+  gi('p-arm1').value=c.pArm1||'';gi('p-arm1-nota').value=c.pArm1Nota||'';
+  gi('p-cris1').value=c.pCris1||'';gi('p-cris1-nota').value=c.pCris1Nota||'';
+  gi('p-arm2').value=c.pArm2||'';gi('p-arm2-nota').value=c.pArm2Nota||'';
+  gi('p-cris2').value=c.pCris2||'';gi('p-cris2-nota').value=c.pCris2Nota||'';
   gi('p-senia').value=c.pSenia||'';gi('p-nota2').value=c.pNota2||'';
   calcTotal();renderList();
   switchTab(document.querySelector('.tab.active')||document.querySelector('.tab'),'tab-datos');
@@ -798,8 +820,10 @@ function readForm(){
     eDia:gi('f-entra-dia').value,eMes:gi('f-entra-mes').value,eAnio:gi('f-entra-anio').value,
     rDia:gi('f-retira-dia').value,rMes:gi('f-retira-mes').value,rAnio:gi('f-retira-anio').value,
     notas:gi('f-notas').value,notas2:gi('f-notas2').value,
-    pArm1:gi('p-arm1').value,pCris1:gi('p-cris1').value,
-    pArm2:gi('p-arm2').value,pCris2:gi('p-cris2').value,
+    pArm1:gi('p-arm1').value,pArm1Nota:gi('p-arm1-nota').value,
+    pCris1:gi('p-cris1').value,pCris1Nota:gi('p-cris1-nota').value,
+    pArm2:gi('p-arm2').value,pArm2Nota:gi('p-arm2-nota').value,
+    pCris2:gi('p-cris2').value,pCris2Nota:gi('p-cris2-nota').value,
     pSenia:gi('p-senia').value,pNota2:gi('p-nota2').value,
     receta
   };
@@ -826,7 +850,8 @@ async function newClient(){
   showLoading('Creando cliente...');
   const row={nombre:'Nuevo cliente',ci:'',tel:'',cel:'',dir:'',
     e_dia:'',e_mes:'',e_anio:'',r_dia:'',r_mes:'',r_anio:'',
-    notas:'',notas2:'',p_arm1:'',p_cris1:'',p_arm2:'',p_cris2:'',
+    notas:'',notas2:'',p_arm1:'',p_arm1_nota:'',p_cris1:'',p_cris1_nota:'',
+    p_arm2:'',p_arm2_nota:'',p_cris2:'',p_cris2_nota:'',
     p_senia:'',p_nota2:'',receta:{}};
   const res=await supa('clientes','POST',row);
   hideLoading();
@@ -978,10 +1003,10 @@ td:first-child{text-align:left;font-weight:600;font-size:8.5pt}
 </tbody></table>
 <div class="pagos">
   <div class="pagos-left">
-    <div class="pr"><span class="lbl">Armaz&oacute;n:</span><div class="val">${fv(merged.pArm1)}</div><span class="sym">$</span></div>
-    <div class="pr"><span class="lbl">Cristales:</span><div class="val">${fv(merged.pCris1)}</div><span class="sym">$</span></div>
-    <div class="pr"><span class="lbl">Armaz&oacute;n:</span><div class="val">${fv(merged.pArm2)}</div><span class="sym">$</span></div>
-    <div class="pr"><span class="lbl">Cristales:</span><div class="val">${fv(merged.pCris2)}</div><span class="sym">$</span></div>
+    <div class="pr"><span class="lbl">Armaz&oacute;n:</span><div class="val">${fv(merged.pArm1Nota)}</div><span class="sym" style="margin-left:8px">$</span><div style="min-width:60px;text-align:right;border-bottom:1px solid #888">${fv(merged.pArm1)}</div></div>
+    <div class="pr"><span class="lbl">Cristales:</span><div class="val">${fv(merged.pCris1Nota)}</div><span class="sym" style="margin-left:8px">$</span><div style="min-width:60px;text-align:right;border-bottom:1px solid #888">${fv(merged.pCris1)}</div></div>
+    <div class="pr"><span class="lbl">Armaz&oacute;n:</span><div class="val">${fv(merged.pArm2Nota)}</div><span class="sym" style="margin-left:8px">$</span><div style="min-width:60px;text-align:right;border-bottom:1px solid #888">${fv(merged.pArm2)}</div></div>
+    <div class="pr"><span class="lbl">Cristales:</span><div class="val">${fv(merged.pCris2Nota)}</div><span class="sym" style="margin-left:8px">$</span><div style="min-width:60px;text-align:right;border-bottom:1px solid #888">${fv(merged.pCris2)}</div></div>
   </div>
   <div class="totbox">
     <div class="trow"><span class="tlbl">Total</span><span>$ ${total.toLocaleString('es-UY')}</span></div>
